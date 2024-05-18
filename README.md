@@ -28,16 +28,15 @@
 
 ## Install
 
-First install all the Python depdendencies needed by this extension:
+First install all the Python dependencies needed by this extension:
 
 ```sh
-sudo apt install python3-pip
-pip3 install "python-gitlab >=1.5.1,<2.0.0"
+sudo apt install python3-gitlab
 ```
 
 Open ulauncher preferences window -> extensions -> add extension and paste the following url:
 
-```<%= https://github.com/brpaz/ulauncher-gitlab %>```
+```<%= https://github.com/bahamut45/ulauncher-gitlab %>```
 
 ## Usage
 
@@ -52,7 +51,7 @@ make dev
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to be learned, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -76,6 +75,6 @@ Or if you prefer a one time donation to the project, you can simple:
 <a href="https://www.buymeacoffee.com/Z1Bu6asGV" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 ## License
 
-Copywright @ 2019 [Bruno Paz](https://github.com/brpaz)
+Copyright @ 2019 [Bruno Paz](https://github.com/brpaz)
 
-This project is [MIT](LLICENSE) Licensed.
+This project is [MIT](LICENSE) Licensed.

@@ -16,6 +16,8 @@ from ulauncher.api.shared.event import (KeywordQueryEvent, PreferencesEvent,
                                         PreferencesUpdateEvent)
 from ulauncher.api.shared.item.ExtensionResultItem import ExtensionResultItem
 
+ICON_PATH = "images/icon.png"
+
 LOGGER = logging.getLogger(__name__)
 
 PROJECTS_SEARCH_TYPE_PUBLIC = "PUBLIC"
@@ -25,6 +27,7 @@ PROJECTS_SEARCH_TYPE_STARRED = "STARRED"
 
 class GitLabExtension(Extension):
     """Main extension class."""
+
     def __init__(self):
         """init method."""
         LOGGER.info("Initializing GitLab Extension")
@@ -47,44 +50,42 @@ class GitLabExtension(Extension):
 
         menu = [
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My",
-                description=
-                "Your personal menu with shortcuts for your Issues, Merge Requests and more",
+                description="Your personal menu with shortcuts for your Issues, Merge Requests and more",
                 highlightable=False,
-                on_enter=SetUserQueryAction("%s my" % keyword),
+                on_enter=SetUserQueryAction(f"{keyword} my"),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="Project Search",
-                description=
-                "Search public projects in the entire GitLab platform",
+                description="Search public projects in the entire GitLab platform",
                 highlightable=False,
-                on_enter=SetUserQueryAction("%s search " % keyword),
+                on_enter=SetUserQueryAction(f"{keyword} search "),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My Projects",
                 description="List the projects you are a member of",
                 highlightable=False,
-                on_enter=SetUserQueryAction("%s projects " % keyword),
+                on_enter=SetUserQueryAction(f"{keyword} projects "),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My Projects (Starred)",
                 description="List your starred projects",
                 highlightable=False,
-                on_enter=SetUserQueryAction("%s starred " % keyword),
+                on_enter=SetUserQueryAction(f"{keyword} starred "),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My Groups",
                 description="List the groups you belong",
                 highlightable=False,
-                on_enter=SetUserQueryAction("%s groups " % keyword),
+                on_enter=SetUserQueryAction(f"{keyword} groups "),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="GitLab Website",
                 description="Opens the GitLab website",
                 highlightable=False,
@@ -92,7 +93,7 @@ class GitLabExtension(Extension):
                 on_alt_enter=CopyToClipboardAction(self.gitlab.url),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="GitLab Status",
                 description="Opens the GitLab status page",
                 highlightable=False,
@@ -112,78 +113,70 @@ class GitLabExtension(Extension):
 
         gitlab_url = self.preferences["url"]
 
-        # Authenticate the user, if its not already authenticated.
+        # Authenticate the user, if It's not already authenticated.
         if self.current_user is None:
             self.gitlab.auth()
             self.current_user = self.gitlab.user
 
         items = [
             ExtensionResultItem(
-                icon="images/icon.png",
-                name="Logged in as %s" % self.current_user.username,
+                icon=ICON_PATH,
+                name=f"Logged in as {self.current_user.username}",
                 description='Open "Profile" page in Gitlab',
                 highlightable=False,
-                on_enter=OpenUrlAction("%s/profile" % gitlab_url),
+                on_enter=OpenUrlAction(f"{gitlab_url}/profile"),
                 on_alt_enter=CopyToClipboardAction("%s/profile" % gitlab_url),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My Projects",
                 description='Open "Projects" page in Gitlab',
                 highlightable=False,
-                on_enter=OpenUrlAction("%s/dashboard/projects" % gitlab_url),
-                on_alt_enter=CopyToClipboardAction("%s/dashboard/projects" %
-                                                   gitlab_url),
+                on_enter=OpenUrlAction(f"{gitlab_url}/dashboard/projects"),
+                on_alt_enter=CopyToClipboardAction(f"{gitlab_url}/dashboard/projects"),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My Groups",
                 description='Open "Groups" page on GitLab',
                 highlightable=False,
-                on_enter=OpenUrlAction("%s/dashboard/groups" % gitlab_url),
-                on_alt_enter=CopyToClipboardAction("%s/dashboard/groups" %
-                                                   gitlab_url),
+                on_enter=OpenUrlAction(f"{gitlab_url}/dashboard/groups"),
+                on_alt_enter=CopyToClipboardAction(f"{gitlab_url}/dashboard/groups"),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My Snippets",
                 description='Open "Snippets" page on GitLab',
                 highlightable=False,
-                on_enter=OpenUrlAction("%s/dashboard/snippets" % gitlab_url),
-                on_alt_enter=OpenUrlAction("%s/dashboard/snippets" %
-                                           gitlab_url),
+                on_enter=OpenUrlAction(f"{gitlab_url}/dashboard/snippets"),
+                on_alt_enter=OpenUrlAction(f"{gitlab_url}/dashboard/snippets"),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My Todos",
                 description='Open "Todos" page on GitLab',
                 highlightable=False,
-                on_enter=OpenUrlAction("%s/dashboard/todos" % gitlab_url),
-                on_alt_enter=CopyToClipboardAction("%s/dashboard/todos" %
-                                                   gitlab_url),
+                on_enter=OpenUrlAction(f"{gitlab_url}/dashboard/todos"),
+                on_alt_enter=CopyToClipboardAction(f"{gitlab_url}/dashboard/todos"),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My Issues",
                 description='Open "Issues" page on GitLab',
                 highlightable=False,
-                on_enter=OpenUrlAction("%s/dashboard/issues?assignee_id=%s" %
-                                       (gitlab_url, self.current_user.id)),
+                on_enter=OpenUrlAction(f"{gitlab_url}/dashboard/issues?assignee_id={self.current_user.id}"),
                 on_alt_enter=CopyToClipboardAction(
-                    "%s/dashboard/issues?assignee_id=%s" %
-                    (gitlab_url, self.current_user.id)),
+                    f"{gitlab_url}/dashboard/issues?assignee_id={self.current_user.id}"),
             ),
             ExtensionResultItem(
-                icon="images/icon.png",
+                icon=ICON_PATH,
                 name="My Merge Requests",
                 description='Open "Merge Requests" page on GitLab',
                 highlightable=False,
                 on_enter=OpenUrlAction(
-                    "%s/dashboard/merge_requests?assignee_id=%s" %
-                    (gitlab_url, self.current_user.id)),
+                    f"{gitlab_url}/dashboard/merge_requests?assignee_id={self.current_user.id}"),
                 on_alt_enter=CopyToClipboardAction(
-                    "%s/dashboard/merge_requests?assignee_id=%s" %
-                    (gitlab_url, self.current_user.id)),
+                    f"{gitlab_url}/dashboard/merge_requests?assignee_id={self.current_user.id}"),
             ),
         ]
 
@@ -218,7 +211,7 @@ class GitLabExtension(Extension):
         else:
             projects = self.gitlab.projects.list(
                 search=query,
-                visibility="public",
+                # visibility="public",
                 order_by="last_activity_at",
                 sort="desc",
                 simple=1,
@@ -229,7 +222,7 @@ class GitLabExtension(Extension):
         if not projects:
             return RenderResultListAction([
                 ExtensionResultItem(
-                    icon="images/icon.png",
+                    icon=ICON_PATH,
                     name="No projects found matching your search criteria",
                     highlightable=False,
                     on_enter=HideWindowAction(),
@@ -244,7 +237,7 @@ class GitLabExtension(Extension):
                 description = ""
             items.append(
                 ExtensionResultItem(
-                    icon="images/icon.png",
+                    icon=ICON_PATH,
                     name=project.name,
                     description=description,
                     highlightable=False,
@@ -268,7 +261,7 @@ class GitLabExtension(Extension):
         if not groups:
             return RenderResultListAction([
                 ExtensionResultItem(
-                    icon="images/icon.png",
+                    icon=ICON_PATH,
                     name="No groups found matching your search criteria",
                     highlightable=False,
                     on_enter=HideWindowAction(),
@@ -283,7 +276,7 @@ class GitLabExtension(Extension):
 
             items.append(
                 ExtensionResultItem(
-                    icon="images/icon.png",
+                    icon=ICON_PATH,
                     name=group.name,
                     description=description,
                     highlightable=False,
@@ -297,6 +290,7 @@ class GitLabExtension(Extension):
 # # pylint: disable=too-many-return-statements
 class KeywordQueryEventListener(EventListener):
     """Handles Keyboard input."""
+
     def on_event(self, event, extension):
         """Handles the event."""
 
@@ -338,8 +332,8 @@ class KeywordQueryEventListener(EventListener):
             LOGGER.error(exc)
             return RenderResultListAction([
                 ExtensionResultItem(
-                    icon="images/icon.png",
-                    name="An error ocurred when connecting to GitLab",
+                    icon=ICON_PATH,
+                    name="An error occurred when connecting to GitLab",
                     description=str(exc),
                     highlightable=False,
                     on_enter=HideWindowAction(),
@@ -348,18 +342,19 @@ class KeywordQueryEventListener(EventListener):
 
 
 class PreferencesEventListener(EventListener):
-    """Listener for prefrences event.
+    """Listener for preferences event.
 
     It is triggered on the extension start with the configured
     preferences
     """
+
     def on_event(self, event, extension):
         """Initializes the GitLab client."""
         extension.gitlab = gitlab.Gitlab(
             event.preferences["url"],
             private_token=event.preferences["access_token"])
 
-        # save the logged in user.
+        # save the logged-in user.
         try:
             extension.gitlab.auth()
             extension.current_user = extension.gitlab.user
@@ -374,14 +369,16 @@ class PreferencesUpdateEventListener(EventListener):
     It is triggered when the user changes any setting in preferences
     window
     """
+
     def on_event(self, event, extension):
         if event.id == "url":
+            # noinspection PyPropertyAccess
             extension.gitlab.url = event.new_value
         elif event.id == "access_token":
             extension.gitlab = gitlab.Gitlab(extension.preferences["url"],
                                              private_token=event.new_value)
 
-            # save the logged in user.
+            # save the logged-in user.
             try:
                 extension.gitlab.auth()
                 extension.current_user = extension.gitlab.user
