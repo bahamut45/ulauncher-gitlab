@@ -238,7 +238,7 @@ class GitLabExtension(Extension):
             items.append(
                 ExtensionResultItem(
                     icon=ICON_PATH,
-                    name=project.name,
+                    name=project.name_with_namespace,
                     description=description,
                     highlightable=False,
                     on_enter=OpenUrlAction(project.web_url),
