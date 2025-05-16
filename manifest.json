@@ -1,8 +1,8 @@
 {
-    "required_api_version": "^2.0.0",
+    "required_api_version": "2",
     "name": "GitLab",
     "description": "Quickly access your GitLab Projects and more.",
-    "developer_name": "Bruno Paz",
+    "developer_name": "Bahamut45",
     "icon": "images/icon.png",
     "options": {
         "query_debounce": 0.5
